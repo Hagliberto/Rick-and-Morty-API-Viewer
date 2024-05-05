@@ -47,10 +47,12 @@ def main():
     
     if option == "Personagem":
         endpoint = "character"
+        # Sempre voltar para a página 1 ao mudar para personagens
+        page_number = 1
     else:
         endpoint = "episode"
         
-    page_number = st.session_state.get(f"{endpoint}_page", 1)  # Recupera o número da página da sessão ou inicializa como 1
+    page_number = st.session_state.get(f"{endpoint}_page", page_number)  # Recupera o número da página da sessão ou inicializa com 1
 
     # Paginação
     data = fetch_data(endpoint, page_number)
@@ -106,7 +108,7 @@ def main():
         
         # Adicionar navegação para os episódios
         if option == "Episódio":
-            col1, col2, col3 = st.sidebar.columns([1, 3, 1])  # Divide a barra lateral em três colunas
+            col1, col2 = st.sidebar.columns([1, 3])  # Divide a barra lateral em duas colunas
         
             if page_number > 1:
                 if col1.button("Página anterior", key="prev_page"):
@@ -116,12 +118,12 @@ def main():
                 if col2.button("Próxima página", key="next_page"):
                     page_number += 1
         
-            if col3.button("Voltar para a primeira página", key="first_page"):
+            if st.sidebar.button("Voltar para a primeira página", key="first_page"):
                 page_number = 1
         
         # Adicionar navegação para os personagens
         if option == "Personagem":
-            col1, col2, col3 = st.sidebar.columns([1, 3, 1])  # Divide a barra lateral em três colunas
+            col1, col2 = st.sidebar.columns([1, 3])  # Divide a barra lateral em duas colunas
         
             if page_number > 1:
                 if col1.button("Página anterior", key="prev_page_personagem"):
@@ -131,7 +133,7 @@ def main():
                 if col2.button("Próxima página", key="next_page_personagem"):
                     page_number += 1
         
-            if col3.button("Voltar para a primeira página", key="first_page_personagem"):
+            if st.sidebar.button("Voltar para a primeira página", key="first_page_personagem"):
                 page_number = 1
         
         
