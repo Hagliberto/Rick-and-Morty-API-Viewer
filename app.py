@@ -62,7 +62,6 @@ def main():
             if num_pages >= page_number:
                 st.sidebar.info(f"Total de personagens: {data['info']['count']}")
                 st.sidebar.info(f"Total de páginas: {num_pages}")
-                st.sidebar.warning("## Personagens:")
                 results = data['results']
             else:
                 st.write("Não existem mais personagens disponíveis.")
@@ -73,7 +72,6 @@ def main():
             if num_pages >= page_number:
                 st.sidebar.info(f"Total de episódios: {data['info']['count']}")
                 st.sidebar.info(f"Total de páginas: {num_pages}")
-                st.sidebar.warning("## Episódios:")
                 results = data['results']
             else:
                 st.write("Não existem mais episódios disponíveis.")
@@ -120,15 +118,19 @@ def main():
 
         # Adicionar navegação para os personagens
         if option == "Personagem":
+            col1, col2, col3 = st.sidebar.columns(3)  # Divide a barra lateral em três colunas
+        
             if page_number > 1:
-                if st.sidebar.button("Página anterior", key="prev_page_personagem"):
+                if col1.button("Página anterior", key="prev_page_personagem"):
                     page_number -= 1
+        
             if num_pages >= page_number:
-                if st.sidebar.button("Próxima página", key="next_page_personagem"):
+                if col2.button("Próxima página", key="next_page_personagem"):
                     page_number += 1
-
-            if st.sidebar.button("Voltar para a primeira página", key="first_page_personagem"):
+        
+            if col3.button("Voltar para a primeira página", key="first_page_personagem"):
                 page_number = 1
+        
 
     # Atualizar dados com a nova página
     st.session_state[f"{endpoint}_page"] = page_number
