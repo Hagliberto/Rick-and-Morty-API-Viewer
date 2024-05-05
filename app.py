@@ -75,7 +75,6 @@ def main():
                 st.sidebar.info(f"Total de páginas: {num_pages}")
                 results = data['results']
             else:
-                st.write("Não existem mais personagens disponíveis.")
                 page_number = 1  # Voltar para a primeira página
                 data = fetch_data(endpoint, page_number)
                 results = data['results']
@@ -85,7 +84,6 @@ def main():
                 st.sidebar.info(f"Total de páginas: {num_pages}")
                 results = data['results']
             else:
-                st.write("Não existem mais episódios disponíveis.")
                 page_number = 1  # Voltar para a primeira página
                 data = fetch_data(endpoint, page_number)
                 results = data['results']
@@ -148,8 +146,8 @@ def main():
             if st.sidebar.button("Voltar para a primeira página", key="first_page_personagem"):
                 page_number = 1
         
-        # Atualizar dados com a nova página
-        st.session_state[f"{endpoint}_page"] = page_number
+            # Atualizar dados com a nova página
+            st.session_state[f"{endpoint}_page"] = page_number
     
     # Informar em qual página se encontra
     st.sidebar.success(f"Você está na página {page_number}/{num_pages}")
