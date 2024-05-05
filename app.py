@@ -116,21 +116,31 @@ def main():
         # Recalcular número da página atual
         current_page = (num_pages - 1) * 20 + len(results) + 1
         
+        # Selecionar método de mudança de página
+        navigation_method = st.sidebar.selectbox("Escolha o método de navegação de página:", ("Botões", "Input number", "Slider"))
+        
         # Adicionar navegação para os episódios
         if option == "Episódio":
             col1, col2 = st.sidebar.columns([1, 1])  # Divide a barra lateral em duas colunas
         
-            if page_number > 1:
-                if col1.button("Página anterior", key="prev_page"):
-                    page_number -= 1
+            if navigation_method == "Botões":
+                if page_number > 1:
+                    if col1.button("Página anterior", key="prev_page"):
+                        page_number -= 1
+            
+                if num_pages >= page_number:
+                    if col2.button("Próxima página", key="next_page"):
+                        page_number += 1
+            
+                if st.sidebar.button("Voltar para a primeira página", key="first_page"):
+                    page_number = 1
+            elif navigation_method == "Input number":
+                new_page_number = st.sidebar.number_input("Número da página:", min_value=1, max_value=num_pages, value=page_number)
+                if new_page_number != page_number:
+                    page_number = new_page_number
+            else:  # Slider
+                page_number = st.sidebar.slider("Selecione a página:", 1, num_pages, page_number)
         
-            if num_pages >= page_number:
-                if col2.button("Próxima página", key="next_page"):
-                    page_number += 1
-        
-            if st.sidebar.button("Voltar para a primeira página", key="first_page"):
-                page_number = 1
-                
         # Atualizar dados com a nova página
         st.session_state[f"{endpoint}_page"] = page_number
         
@@ -138,16 +148,23 @@ def main():
         if option == "Personagem":
             col1, col2 = st.sidebar.columns([1, 1])  # Divide a barra lateral em duas colunas
         
-            if page_number > 1:
-                if col1.button("Página anterior", key="prev_page_personagem"):
-                    page_number -= 1
-        
-            if num_pages >= page_number:
-                if col2.button("Próxima página", key="next_page_personagem"):
-                    page_number += 1
-        
-            if st.sidebar.button("Voltar para a primeira página", key="first_page_personagem"):
-                page_number = 1
+            if navigation_method == "Botões":
+                if page_number > 1:
+                    if col1.button("Página anterior", key="prev_page_personagem"):
+                        page_number -= 1
+            
+                if num_pages >= page_number:
+                    if col2.button("Próxima página", key="next_page_personagem"):
+                        page_number += 1
+            
+                if st.sidebar.button("Voltar para a primeira página", key="first_page_personagem"):
+                    page_number = 1
+            elif navigation_method == "Input number":
+                new_page_number = st.sidebar.number_input("Número da página:", min_value=1, max_value=num_pages, value=page_number)
+                if new_page_number != page_number:
+                    page_number = new_page_number
+            else:  # Slider
+                page_number = st.sidebar.slider("Selecione a página:", 1, num_pages, page_number)
         
         # Atualizar dados com a nova página
         st.session_state[f"{endpoint}_page"] = page_number
