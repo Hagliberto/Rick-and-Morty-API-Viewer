@@ -23,9 +23,13 @@ def fetch_data(endpoint, page_number):
         response.raise_for_status()  # Raises HTTPError for bad requests
         return response.json()
     except requests.exceptions.RequestException as e:
-        st.error(f"An error occurred: {e}")
-        logging.error(f"Request error: {e}")
-        return None
+        if response.status_code == 404:
+            st.error("Página não encontrada. Redirecionando para a página 1.")
+            return fetch_data(endpoint, 1)  # Redireciona para a página 1 em caso de erro 404
+        else:
+            st.error(f"An error occurred: {e}")
+            logging.error(f"Request error: {e}")
+            return None
 
 def format_date(date_str):
     try:
@@ -61,14 +65,6 @@ def main():
     if data is not None:
         num_pages = data['info']['pages']  # Armazena o número total de páginas
         
-        # Verifica se a página solicitada ultrapassa o número total de páginas
-        if page_number > num_pages:
-            page_number = 1  # Redireciona para a página 1 caso a página solicitada não exista
-            st.session_state[f"{endpoint}_page"] = page_number  # Atualiza a sessão com o novo número da página
-            st.sidebar.success(f"Você está na página {page_number}/{num_pages}")  # Mensagem de sucesso
-            
-            return  # Sai da função para evitar a execução do código abaixo
-
         if option == "Personagem":
             if num_pages >= page_number:
                 st.sidebar.info(f"Total de personagens: {data['info']['count']}")
