@@ -128,7 +128,7 @@ def main():
     st.session_state[f"{endpoint}_page"] = page_number
     
     # Informar em qual página se encontra
-    st.write(f"Você está na página {page_number}/{num_pages}")
+    st.sidebar.info(f"Você está na página {page_number}/{num_pages}")
 
 if __name__ == "__main__":
     main()
