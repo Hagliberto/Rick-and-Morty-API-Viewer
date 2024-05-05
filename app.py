@@ -106,14 +106,17 @@ def main():
         
         # Adicionar navegação para os episódios
         if option == "Episódio":
+            col1, col2, col3 = st.sidebar.columns(3)  # Divide a barra lateral em três colunas
+        
             if page_number > 1:
-                if st.sidebar.button("Página anterior", key="prev_page"):
+                if col1.button("Página anterior", key="prev_page_episodio"):
                     page_number -= 1
+        
             if num_pages >= page_number:
-                if st.sidebar.button("Próxima página", key="next_page"):
+                if col2.button("Próxima página", key="prev_page_episodio"):
                     page_number += 1
-
-            if st.sidebar.button("Voltar para a primeira página", key="first_page"):
+        
+            if col3.button("Voltar para a primeira página", key="prev_page_episodio"):
                 page_number = 1
 
         # Adicionar navegação para os personagens
