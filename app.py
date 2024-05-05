@@ -51,6 +51,7 @@ def main():
         page_number = 1
     else:
         endpoint = "episode"
+        page_number = 1  # Sempre voltar para a página 1 ao mudar para episódios
         
     page_number = st.session_state.get(f"{endpoint}_page", page_number)  # Recupera o número da página da sessão ou inicializa com 1
 
@@ -108,7 +109,7 @@ def main():
         
         # Adicionar navegação para os episódios
         if option == "Episódio":
-            col1, col2 = st.sidebar.columns([1, 3])  # Divide a barra lateral em duas colunas
+            col1, col2 = st.sidebar.columns([1, 1])  # Divide a barra lateral em duas colunas
         
             if page_number > 1:
                 if col1.button("Página anterior", key="prev_page"):
