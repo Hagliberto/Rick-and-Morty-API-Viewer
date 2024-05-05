@@ -112,13 +112,13 @@ def main():
                 st.write("---")
         
         # Recalcular número da página atual
-        current_page = len(results) * (page_number - 1) + 1
+        current_page = (num_pages - 1) * 20 + len(results) + 1
         
         # Adicionar navegação para os episódios
         if option == "Episódio":
             col1, col2 = st.sidebar.columns([1, 1])  # Divide a barra lateral em duas colunas
         
-            if current_page > 1:
+            if page_number > 1:
                 if col1.button("Página anterior", key="prev_page"):
                     page_number -= 1
         
@@ -133,7 +133,7 @@ def main():
         if option == "Personagem":
             col1, col2 = st.sidebar.columns([1, 1])  # Divide a barra lateral em duas colunas
         
-            if current_page > 1:
+            if page_number > 1:
                 if col1.button("Página anterior", key="prev_page_personagem"):
                     page_number -= 1
         
