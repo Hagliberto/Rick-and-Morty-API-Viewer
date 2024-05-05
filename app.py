@@ -99,6 +99,15 @@ def main():
                     except Exception as e:
                         st.warning(f"Falha ao exibir imagem para {item['name']}. Por favor, tente novamente mais tarde.")
                 st.write("---")
+        
+        # Adicionar navegação para os episódios
+        if option == "Episódio":
+            if page_number > 1:
+                st.sidebar.button("Página anterior", key="prev_page")
+            if data['info']['pages'] > page_number:
+                st.sidebar.button("Próxima página", key="next_page")
 
-if __name__ == "__main__":
-    main()
+            if st.sidebar.button("Voltar para a primeira página", key="first_page"):
+                page_number = 1
+                params = {"page": page_number}
+                data = fetch_data(endpoint, params=params)
