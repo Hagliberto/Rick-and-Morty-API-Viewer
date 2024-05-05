@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import logging
 from datetime import datetime
+import time
 
 # Configurações da página
 st.set_page_config(
@@ -24,7 +25,10 @@ def fetch_data(endpoint, page_number):
         return response.json()
     except requests.exceptions.RequestException as e:
         if response.status_code == 404:
-            st.error("Página não encontrada. Redirecionando para a página 1.")
+            error_message = st.empty()
+            error_message.error("Página não encontrada. Redirecionando para a página 1.")
+            time.sleep(3)  # Espera 3 segundos
+            error_message.empty()  # Limpa a mensagem de erro
             return fetch_data(endpoint, 1)  # Redireciona para a página 1 em caso de erro 404
         else:
             st.error(f"An error occurred: {e}")
@@ -148,7 +152,7 @@ def main():
     st.session_state[f"{endpoint}_page"] = page_number
     
     # Informar em qual página se encontra
-    st.sidebar.success(f"Você está na página {page_number}")
+    st.sidebar.success(f"Você está na página {page_number}/{num_pages}")
 
 if __name__ == "__main__":
     main()
