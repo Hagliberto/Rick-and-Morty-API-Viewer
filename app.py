@@ -64,6 +64,10 @@ def main():
         # Verifica se a página solicitada não ultrapassa o número total de páginas
         if page_number > num_pages:
             page_number = 1  # Redireciona para a página 1 caso a página solicitada não exista
+            st.session_state[f"{endpoint}_page"] = page_number  # Atualiza a sessão com o novo número da página
+            st.sidebar.success(f"Você está na página {page_number}/{num_pages}")  # Mensagem de sucesso
+            
+            return  # Sai da função para evitar a execução do código abaixo
 
         if option == "Personagem":
             if num_pages >= page_number:
@@ -141,13 +145,11 @@ def main():
             if st.sidebar.button("Voltar para a primeira página", key="first_page_personagem"):
                 page_number = 1
         
-        
-
-    # Atualizar dados com a nova página
-    st.session_state[f"{endpoint}_page"] = page_number
+        # Atualizar dados com a nova página
+        st.session_state[f"{endpoint}_page"] = page_number
     
-    # Informar em qual página se encontra
-    st.sidebar.success(f"Você está na página {page_number}/{num_pages}")
+        # Informar em qual página se encontra
+        st.sidebar.success(f"Você está na página {page_number}/{num_pages}")
 
 if __name__ == "__main__":
     main()
