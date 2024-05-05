@@ -41,7 +41,7 @@ def format_date(date_str):
             return "Data inválida"
 
 def main():
-    st.success("Rick and Morty API Viewer")
+    st.success("Rick and Morty")
     
     option = st.sidebar.radio("Selecione o tipo de informação:", ("Personagem", "Episódio"))
     
@@ -57,9 +57,9 @@ def main():
 
     if data is not None:
         if option == "Personagem":
-            st.write(f"Total de personagens: {data['info']['count']}")
-            st.write(f"Total de páginas: {data['info']['pages']}")
-            st.write("## Personagens:")
+            st.sidebar.info(f"Total de personagens: {data['info']['count']}")
+            st.sidebar.info(f"Total de páginas: {data['info']['pages']}")
+            st.warning("## Personagens:")
             results = data['results']
         else:
             if data['info']['pages'] >= page_number:
