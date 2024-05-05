@@ -47,10 +47,10 @@ def main():
     
     if option == "Personagem":
         endpoint = "character"
-        page_number = st.sidebar.number_input("Número da página", value=1, min_value=1)
     else:
         endpoint = "episode"
-        page_number = 1  # Reset page number when changing option
+        
+    page_number = 1  # Inicializa o número da página como 1
 
     # Paginação
     params = {"page": page_number}
