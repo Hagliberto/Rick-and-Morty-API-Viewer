@@ -111,3 +111,7 @@ def main():
                 page_number = 1
                 params = {"page": page_number}
                 data = fetch_data(endpoint, params=params)
+
+
+if __name__ == "__main__":
+    main()
