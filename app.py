@@ -106,25 +106,22 @@ def main():
         
         # Adicionar navegação para os episódios
         if option == "Episódio":
-            col1, col2, col3 = st.sidebar.columns(3)  # Divide a barra lateral em três colunas
+            col1, col2, col3 = st.sidebar.columns([1, 3, 1])  # Divide a barra lateral em três colunas
         
             if page_number > 1:
-                col1, col2, col3 = st.sidebar.columns(3)  # Divide a barra lateral em três colunas
-            
-                if page_number > 1:
-                    if col1.button("Página anterior", key="prev_page_episodio"):
-                        page_number -= 1
-            
-                if num_pages >= page_number:
-                    if col2.button("Próxima página", key="next_page_episodio"):
-                        page_number += 1
-            
-                if col3.button("Voltar para a primeira página", key="first_page_episodio"):
-                    page_number = 1
-
+                if col1.button("Página anterior", key="prev_page"):
+                    page_number -= 1
+        
+            if num_pages >= page_number:
+                if col2.button("Próxima página", key="next_page"):
+                    page_number += 1
+        
+            if col3.button("Voltar para a primeira página", key="first_page"):
+                page_number = 1
+        
         # Adicionar navegação para os personagens
         if option == "Personagem":
-            col1, col2, col3 = st.sidebar.columns(3)  # Divide a barra lateral em três colunas
+            col1, col2, col3 = st.sidebar.columns([1, 3, 1])  # Divide a barra lateral em três colunas
         
             if page_number > 1:
                 if col1.button("Página anterior", key="prev_page_personagem"):
@@ -136,6 +133,7 @@ def main():
         
             if col3.button("Voltar para a primeira página", key="first_page_personagem"):
                 page_number = 1
+        
         
 
     # Atualizar dados com a nova página
