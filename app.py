@@ -47,10 +47,10 @@ def main():
     
     if option == "Personagem":
         endpoint = "character"
+        page_number = st.sidebar.number_input("Número da página", value=1, min_value=1)
     else:
         endpoint = "episode"
-        
-    page_number = st.sidebar.number_input("Número da página", value=1, min_value=1)
+        page_number = 1  # Reset page number when changing option
 
     # Paginação
     params = {"page": page_number}
@@ -115,8 +115,22 @@ def main():
             # Atualizar dados com a nova página
             params = {"page": page_number}
             data = fetch_data(endpoint, params=params)
+        
+        # Adicionar navegação para os personagens
+        if option == "Personagem":
+            if page_number > 1:
+                if st.sidebar.button("Página anterior", key="prev_page_personagem"):
+                    page_number -= 1
+            if data['info']['pages'] > page_number:
+                if st.sidebar.button("Próxima página", key="next_page_personagem"):
+                    page_number += 1
 
+            if st.sidebar.button("Voltar para a primeira página", key="first_page_personagem"):
+                page_number = 1
 
+            # Atualizar dados com a nova página
+            params = {"page": page_number}
+            data = fetch_data(endpoint, params=params)
 
 if __name__ == "__main__":
     main()
