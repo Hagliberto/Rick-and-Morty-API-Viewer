@@ -50,7 +50,7 @@ def main():
     else:
         endpoint = "episode"
         
-    page_number = 1  # Inicializa o número da página como 1
+    page_number = st.sidebar.empty().number_input("Número da página", value=1, min_value=1)  # Input para número da página
 
     # Paginação
     params = {"page": page_number}
@@ -131,6 +131,8 @@ def main():
             # Atualizar dados com a nova página
             params = {"page": page_number}
             data = fetch_data(endpoint, params=params)
+
+        st.sidebar.write(f"Página atual: {page_number}")  # Mostrar o número da página atual
 
 if __name__ == "__main__":
     main()
