@@ -105,7 +105,7 @@ def main():
             if page_number > 1:
                 if st.sidebar.button("Página anterior", key="prev_page"):
                     page_number -= 1
-            if data['info']['pages'] > page_number:
+            if data['info']['pages'] >= page_number:
                 if st.sidebar.button("Próxima página", key="next_page"):
                     page_number += 1
 
@@ -121,7 +121,7 @@ def main():
             if page_number > 1:
                 if st.sidebar.button("Página anterior", key="prev_page_personagem"):
                     page_number -= 1
-            if data['info']['pages'] > page_number:
+            if data['info']['pages'] >= page_number:
                 if st.sidebar.button("Próxima página", key="next_page_personagem"):
                     page_number += 1
 
