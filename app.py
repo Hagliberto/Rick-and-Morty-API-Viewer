@@ -59,10 +59,16 @@ def main():
         num_pages = data['info']['pages']  # Armazena o número total de páginas
 
         if option == "Personagem":
-            st.sidebar.info(f"Total de personagens: {data['info']['count']}")
-            st.sidebar.info(f"Total de páginas: {num_pages}")
-            st.sidebar.warning("## Personagens:")
-            results = data['results']
+            if num_pages >= page_number:
+                st.sidebar.info(f"Total de personagens: {data['info']['count']}")
+                st.sidebar.info(f"Total de páginas: {num_pages}")
+                st.sidebar.warning("## Personagens:")
+                results = data['results']
+            else:
+                st.write("Não existem mais personagens disponíveis.")
+                page_number = 1  # Voltar para a primeira página
+                data = fetch_data(endpoint, page_number)
+                results = data['results']
         else:
             if num_pages >= page_number:
                 st.sidebar.info(f"Total de episódios: {data['info']['count']}")
@@ -128,7 +134,7 @@ def main():
     st.session_state[f"{endpoint}_page"] = page_number
     
     # Informar em qual página se encontra
-    st.sidebar.info(f"Você está na página {page_number}/{num_pages}")
+    st.write(f"Você está na página {page_number}/{num_pages}")
 
 if __name__ == "__main__":
     main()
