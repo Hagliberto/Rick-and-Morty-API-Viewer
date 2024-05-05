@@ -123,7 +123,7 @@ def main():
         
         # Adicionar navegação para os personagens
         if option == "Personagem":
-            col1, col2 = st.sidebar.columns([1, 3])  # Divide a barra lateral em duas colunas
+            col1, col2 = st.sidebar.columns([1, 1])  # Divide a barra lateral em duas colunas
         
             if page_number > 1:
                 if col1.button("Página anterior", key="prev_page_personagem"):
