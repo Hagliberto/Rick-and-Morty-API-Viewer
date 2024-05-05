@@ -57,15 +57,17 @@ def main():
     data = fetch_data(endpoint, params=params)
 
     if data is not None:
+        num_pages = data['info']['pages']  # Armazena o número total de páginas
+
         if option == "Personagem":
             st.sidebar.info(f"Total de personagens: {data['info']['count']}")
-            st.sidebar.info(f"Total de páginas: {data['info']['pages']}")
+            st.sidebar.info(f"Total de páginas: {num_pages}")
             st.sidebar.warning("## Personagens:")
             results = data['results']
         else:
-            if data['info']['pages'] >= page_number:
+            if num_pages >= page_number:
                 st.sidebar.info(f"Total de episódios: {data['info']['count']}")
-                st.sidebar.info(f"Total de páginas: {data['info']['pages']}")
+                st.sidebar.info(f"Total de páginas: {num_pages}")
                 st.sidebar.warning("## Episódios:")
                 results = data['results']
             else:
@@ -105,7 +107,7 @@ def main():
             if page_number > 1:
                 if st.sidebar.button("Página anterior", key="prev_page"):
                     page_number -= 1
-            if data['info']['pages'] >= page_number:
+            if num_pages >= page_number:
                 if st.sidebar.button("Próxima página", key="next_page"):
                     page_number += 1
 
@@ -121,7 +123,7 @@ def main():
             if page_number > 1:
                 if st.sidebar.button("Página anterior", key="prev_page_personagem"):
                     page_number -= 1
-            if data['info']['pages'] >= page_number:
+            if num_pages >= page_number:
                 if st.sidebar.button("Próxima página", key="next_page_personagem"):
                     page_number += 1
 
