@@ -47,14 +47,12 @@ def main():
     
     if option == "Personagem":
         endpoint = "character"
+        page_number = st.sidebar.number_input("Número da página", value=1, min_value=1)
     else:
         endpoint = "episode"
-
-        # Reset page number when changing option
-        page_number = 1  
+        page_number = 1  # Reset page number when changing option
 
     # Paginação
-    page_number = st.sidebar.number_input("Número da página", value=page_number, min_value=1)
     params = {"page": page_number}
     data = fetch_data(endpoint, params=params)
 
