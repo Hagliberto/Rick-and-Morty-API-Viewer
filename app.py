@@ -131,8 +131,8 @@ def main():
             if st.sidebar.button("Voltar para a primeira página", key="first_page"):
                 page_number = 1
                 
-            # Atualizar dados com a nova página
-            st.session_state[f"{endpoint}_page"] = page_number
+        # Atualizar dados com a nova página
+        st.session_state[f"{endpoint}_page"] = page_number
         
         # Adicionar navegação para os personagens
         if option == "Personagem":
@@ -149,8 +149,8 @@ def main():
             if st.sidebar.button("Voltar para a primeira página", key="first_page_personagem"):
                 page_number = 1
         
-            # Atualizar dados com a nova página
-            st.session_state[f"{endpoint}_page"] = page_number
+        # Atualizar dados com a nova página
+        st.session_state[f"{endpoint}_page"] = page_number
     
     # Informar em qual página se encontra
     st.sidebar.success(f"Você está na página {page_number}/{num_pages}")
