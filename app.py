@@ -60,6 +60,10 @@ def main():
 
     if data is not None:
         num_pages = data['info']['pages']  # Armazena o número total de páginas
+        
+        # Verifica se a página solicitada não ultrapassa o número total de páginas
+        if page_number > num_pages:
+            page_number = 1  # Redireciona para a página 1 caso a página solicitada não exista
 
         if option == "Personagem":
             if num_pages >= page_number:
