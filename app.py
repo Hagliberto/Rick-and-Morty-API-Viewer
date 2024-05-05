@@ -61,7 +61,7 @@ def main():
     if data is not None:
         num_pages = data['info']['pages']  # Armazena o número total de páginas
         
-        # Verifica se a página solicitada não ultrapassa o número total de páginas
+        # Verifica se a página solicitada ultrapassa o número total de páginas
         if page_number > num_pages:
             page_number = 1  # Redireciona para a página 1 caso a página solicitada não exista
             st.session_state[f"{endpoint}_page"] = page_number  # Atualiza a sessão com o novo número da página
@@ -145,11 +145,11 @@ def main():
             if st.sidebar.button("Voltar para a primeira página", key="first_page_personagem"):
                 page_number = 1
         
-        # Atualizar dados com a nova página
-        st.session_state[f"{endpoint}_page"] = page_number
+    # Atualizar dados com a nova página
+    st.session_state[f"{endpoint}_page"] = page_number
     
-        # Informar em qual página se encontra
-        st.sidebar.success(f"Você está na página {page_number}/{num_pages}")
+    # Informar em qual página se encontra
+    st.sidebar.success(f"Você está na página {page_number}/{num_pages}")
 
 if __name__ == "__main__":
     main()
