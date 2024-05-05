@@ -17,9 +17,9 @@ logging.basicConfig(filename='error.log', level=logging.ERROR)
 
 # Função para buscar dados com cache
 @st.cache_resource
-def fetch_data(endpoint, params=None):
+def fetch_data(endpoint, page_number):
     try:
-        response = requests.get(f"https://rickandmortyapi.com/api/{endpoint}", params=params)
+        response = requests.get(f"https://rickandmortyapi.com/api/{endpoint}?page={page_number}")
         response.raise_for_status()  # Raises HTTPError for bad requests
         return response.json()
     except requests.exceptions.RequestException as e:
@@ -53,8 +53,7 @@ def main():
     page_number = st.session_state.get(f"{endpoint}_page", 1)  # Recupera o número da página da sessão ou inicializa como 1
 
     # Paginação
-    params = {"page": page_number}
-    data = fetch_data(endpoint, params=params)
+    data = fetch_data(endpoint, page_number)
 
     if data is not None:
         num_pages = data['info']['pages']  # Armazena o número total de páginas
@@ -73,8 +72,7 @@ def main():
             else:
                 st.write("Não existem mais episódios disponíveis.")
                 page_number = 1  # Voltar para a primeira página
-                params = {"page": page_number}
-                data = fetch_data(endpoint, params=params)
+                data = fetch_data(endpoint, page_number)
                 results = data['results']
         
         num_columns = 3
@@ -128,8 +126,6 @@ def main():
 
     # Atualizar dados com a nova página
     st.session_state[f"{endpoint}_page"] = page_number
-    params = {"page": page_number}
-    data = fetch_data(endpoint, params=params)
 
 if __name__ == "__main__":
     main()
