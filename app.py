@@ -3,7 +3,14 @@ import requests
 import logging
 from datetime import datetime
 
-st.set_page_config(layout="wide")
+# Configurações da página
+st.set_page_config(
+    page_title="Rick and Morty", 
+    page_icon="🤪",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={"About": "`Página inicial:`🌍 https://hagliberto.streamlit.app/"}  
+)
 
 # Configurando o logger
 logging.basicConfig(filename='error.log', level=logging.ERROR)
@@ -34,7 +41,7 @@ def format_date(date_str):
             return "Data inválida"
 
 def main():
-    st.title("Rick and Morty API Viewer")
+    st.success("Rick and Morty API Viewer")
     
     option = st.sidebar.radio("Selecione o tipo de informação:", ("Personagem", "Episódio"))
     
