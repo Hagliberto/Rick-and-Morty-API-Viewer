@@ -50,7 +50,7 @@ def main():
     else:
         endpoint = "episode"
         
-    page_number = 1  # Inicializa o número da página como 1
+    page_number = st.session_state.get(f"{endpoint}_page", 1)  # Recupera o número da página da sessão ou inicializa como 1
 
     # Paginação
     params = {"page": page_number}
@@ -114,10 +114,6 @@ def main():
             if st.sidebar.button("Voltar para a primeira página", key="first_page"):
                 page_number = 1
 
-            # Atualizar dados com a nova página
-            params = {"page": page_number}
-            data = fetch_data(endpoint, params=params)
-        
         # Adicionar navegação para os personagens
         if option == "Personagem":
             if page_number > 1:
@@ -130,9 +126,10 @@ def main():
             if st.sidebar.button("Voltar para a primeira página", key="first_page_personagem"):
                 page_number = 1
 
-            # Atualizar dados com a nova página
-            params = {"page": page_number}
-            data = fetch_data(endpoint, params=params)
+    # Atualizar dados com a nova página
+    st.session_state[f"{endpoint}_page"] = page_number
+    params = {"page": page_number}
+    data = fetch_data(endpoint, params=params)
 
 if __name__ == "__main__":
     main()
